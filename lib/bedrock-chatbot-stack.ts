@@ -13,8 +13,10 @@ import * as path from 'path';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
+
 export interface BedrockChatbotStackProps extends cdk.StackProps {
-  modelId?: string;
+  readonly modelId?: string;
+  readonly apiUrl?: string; // ← この行を追加
 }
 
 export class BedrockChatbotStack extends cdk.Stack {
@@ -151,13 +153,17 @@ export class BedrockChatbotStack extends cdk.Stack {
     // Lambda function
     const chatFunction = new lambda.Function(this, 'ChatFunction', {
       runtime: lambda.Runtime.PYTHON_3_10,
-      handler: 'index.lambda_handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda')),
+      
+      // ★★★ ここを 'index.handler' に修正 ★★★
+      handler: 'index.handler', 
+      
+      code: lambda.Code.fromAsset('lambda'), // ← (補足) 元のリポジトリではこちらが使われています
       timeout: cdk.Duration.seconds(30),
       memorySize: 128,
       role: lambdaRole,
       environment: {
         MODEL_ID: modelId,
+        API_URL: props.apiUrl || '', // ← この行は正しく追加できています！
       },
     });
 
