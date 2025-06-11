@@ -6,7 +6,7 @@ const app = new cdk.App();
 new BedrockChatbotStack(app, 'BedrockChatbotStack', {
   // ★★★ このapiUrlの行を追加し、URLをあなたのものに書き換えます ★★★
   //     （必ず /generate を末尾につけてください）
-  apiUrl: "https://xxxxxxxx.ngrok-free.app/generate",
+  apiUrl: "https://5cbe-35-234-31-4.ngrok-free.app",
 
   // modelIdは今回利用しないので、そのままでも、行ごと削除してもOKです
   // modelId: 'us.amazon.nova-lite-v1:0',
