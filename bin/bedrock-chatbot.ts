@@ -1,21 +1,23 @@
-#!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { BedrockChatbotStack } from '../lib/bedrock-chatbot-stack';
 
 const app = new cdk.App();
 new BedrockChatbotStack(app, 'BedrockChatbotStack', {
-  // モデルIDをオプションで指定可能
-  modelId: 'us.amazon.nova-lite-v1:0',
-  //modelId: 'us.amazon.nova-micro-v1:0',
-  
-  // 環境変数から取得したリージョンを使用、またはデフォルトとしてus-east-1を使用
-  env: { 
-    account: process.env.CDK_DEFAULT_ACCOUNT, 
-    region: process.env.CDK_DEFAULT_REGION || 'us-east-1'
-  },
+  // ★★★ このapiUrlの行を追加し、URLをあなたのものに書き換えます ★★★
+  //     （必ず /generate を末尾につけてください）
+  apiUrl: "https://xxxxxxxx.ngrok-free.app/generate",
+
+  // modelIdは今回利用しないので、そのままでも、行ごと削除してもOKです
+  // modelId: 'us.amazon.nova-lite-v1:0',
+
+  // 環境設定（この部分は変更しません）
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION || 'us-east-1'
+  }
 });
 
-// タグはスタックレベルで追加
+// タグ設定（この部分は変更しません）
 cdk.Tags.of(app).add('Project', 'BedrockChatbot');
 cdk.Tags.of(app).add('Environment', 'Dev');
