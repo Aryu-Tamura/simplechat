@@ -163,7 +163,7 @@ export class BedrockChatbotStack extends cdk.Stack {
       role: lambdaRole,
       environment: {
         MODEL_ID: modelId,
-        API_URL: props.apiUrl || '', // ← この行は正しく追加できています！
+        API_URL: props?.apiUrl || '', // ← この行は正しく追加できています！
       },
     });
 
